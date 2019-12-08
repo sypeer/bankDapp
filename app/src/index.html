@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Bank Of Wei | Ethereum Based Banking </title>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-light">
+      <a href="/" class="navbar-brand" style='font-family:cursive; margin:auto; padding: auto;'>Bank Of Wei</a>
+   </nav>
+
+   <div class="container-fluid col-8 text-center" style="margin-top: 30px;">
+
+    <div>
+      <h1>Bank Of Wei | Ethereum Based Banking</h1>
+      <p>You have <strong class="balance" id="balance">loading...</strong> your BoW Checking Account</p>
+      <form id='register-customer' class='container-fluid col-4 text-center'>
+        <button type='submit' class="nav-link btn btn-success form-submit">Register My Metamask Account</button>
+      </form>
+    </div>
+    <hr>
+
+    <div class='card-deck'>
+
+      <div class='card'>
+        <h2>Deposit Funds</h2>
+        <form id='deposit-funds' class='span2'>
+          <label for="amount">Amount:</label>
+          <input type="text" id="deposit-amount" placeholder="e.g. 95" />
+          <button class="btn btn-outline-success btn-sm">Submit Deposit</button>
+        </form>
+      </div>
+
+      <div class='card'>
+        <h2>Withdraw Funds</h2>
+        <form id='withdraw-funds' class='span2'>
+          <label for="amount">Amount:</label>
+          <input type="text" id="withdraw-amount" placeholder="e.g. 95" />
+          <button class="btn btn-outline-success btn-sm">Submit Withdrawal</button>
+        </form>
+      </div>
+
+    </div>
+    <br>
+
+    <div class='container-fluid'>
+      <div class='card'>
+        <h2>Send Ether</h2>
+        <form id='transfer-funds'>
+          <label for="amount">Amount:</label>
+          <input type="text" id="transfer-amount" placeholder="e.g. 95" />
+          <br>
+          <label for="receiver">To address:</label>
+          <input
+            type="text"
+            id="transfer-receiver"
+            placeholder="e.g. 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"
+          />
+          <br>
+          <div class="span2" style='margin:10px;'>
+            <button class="btn btn-success">Send Wei</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <hr>
+
+  </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+
+</html>
