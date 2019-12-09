@@ -72,9 +72,9 @@ contract BankOfWei {
     Customer memory customer = transactionAccounts[msg.sender];
     require(customer.registered);
     require(_amount <= customer.balance);
+    msg.sender.transfer(_amount);
     customer.balance -= _amount;
     transactionAccounts[msg.sender] = customer;
-    //msg.sender.transfer(_amount);
     emit WithdrawalLog(customer.customer, _amount, customer.balance);
     return(customer.balance);
   }

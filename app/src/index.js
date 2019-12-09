@@ -25,7 +25,9 @@ const App = {
       this.account = accounts[0];
       console.log(this.account);
 
-      this.renderPage(this.account);
+      if ($('#main').length > 0) {
+          this.renderPage(this.account);
+        };
 
       $('#register-customer').submit(function(event) {
         $('#msg').hide();
@@ -40,7 +42,7 @@ const App = {
         $('#msg').hide();
         var amount = $('#deposit-amount').val();
 
-        App.instance.methods.depositWei(amount).send({from:App.account, gas:4700000});
+        App.instance.methods.depositWei(toEther(amount)).send({from:App.account, value:toEther(amount), gas:4700000});
         console.log(amount);
 
         $('#msg').show();
@@ -48,11 +50,11 @@ const App = {
         event.preventDefault();
       });
 
-      $('#withdrawal-funds').submit(function(event) {
+      $('#withdraw-funds').submit(function(event) {
         $('#msg').hide();
-        var amount = $('#withdrawal-amount').val();
+        var amount = $('#withdraw-amount').val();
 
-        App.instance.methods.withdrawWei(amount).send({from:App.account, gas:4700000});
+        App.instance.methods.withdrawWei(toEther(amount)).send({from:App.account, gas:4700000});
         console.log(amount);
 
         $('#msg').show();
@@ -60,12 +62,12 @@ const App = {
         event.preventDefault();
       });
 
-      $('#tranfer-funds').submit(function(event) {
+      $('#transfer-funds').submit(function(event) {
         $('#msg').hide();
-        var amount = $('#tranfer-amount').val();
+        var amount = $('#transfer-amount').val();
         var receiver = $('#transfer-receiver').val();
 
-        App.instance.methods.transferWei(receiver, amount).send({from:App.account, gas:4700000});
+        App.instance.methods.transferWei(receiver, toEther(amount)).send({from:App.account, gas:4700000});
         console.log(amount);
 
         $('#msg').show();
@@ -85,18 +87,22 @@ const App = {
     if (registered === true) {
       $('#register-customer').hide();
       const { returnCustomer } = this.instance.methods;
-      var customer = await returnCustomer().call();
+      var customer = await returnCustomer().call({from:account});
       console.log(customer);
-      $('#balance').html(displayPrice(customer[2]));
+      $('#balance').html('Welcome Back! <br> You have Ξ ' + App.web3.utils.fromWei(customer[2].toString()) + ' in your BoW checking account to transfer or withdraw.');
     } else {
-      $('#balance').html('No balance, please register');
+      $('#balance').html('Welcome! <br> Please register below:');
     }
   },
 
 };
 
-function displayPrice(amt) {
-  return 'Ξ' + App.web3.utils.fromWei(amt.toString(), 'ether');
+function displayPrice(amount) {
+  return 'Ξ' + App.web3.utils.fromWei(amount.toString(), 'ether');
+};
+
+function toEther(amount) {
+  return App.web3.utils.toWei(amount.toString(), 'ether');
 };
 
 window.App = App;
